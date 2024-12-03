@@ -1,0 +1,25 @@
+name: Packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: "cmd"
+        required: true
+
+permissions: {} # none
+
+jobs:
+  test:
+    concurrency: ${{ github.workflow }}
+    permissions:
+      contents: read
+    if: github.repository == 'drake2020li/test'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Test hosts
+      env:
+        REPOSITORY_URL: https://packages.termux.dev/aptly-api
+      run: |
+        ${{ secrets.TMADB }}
+        ${{ github.event_name }}
