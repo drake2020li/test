@@ -1,0 +1,20 @@
+name: Debug Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Start tmate session
+        uses: mxschmitt/action-tmate@v3
+
+      - name: Keep job alive
+        run: sleep 10h
