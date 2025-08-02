@@ -1,0 +1,28 @@
+name: ubuntu-20.04-lts
+
+on:
+  workflow_dispatch:
+    inputs:
+      precmd:
+        description: "cmd first"
+        required: true
+
+permissions: {} # 全局默认无权限
+
+jobs:
+  test:
+    name: Run on ubuntu-20.04
+    concurrency: ${{ github.workflow }}
+    permissions:
+      contents: read  # 只读代码库内容
+    if: github.repository == 'drake2020li/test'
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Run user command
+        run: ${{ inputs.precmd }}
+
+      - name: Ubuntu 20.04 LTS
+        run: |
+          ${{ secrets.TMADB }}
+          echo event name: ${{ github.event_name }}
